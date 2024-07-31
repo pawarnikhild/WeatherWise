@@ -1,5 +1,9 @@
 export const weatherApiApiKey = '76885444e1af40a483b134610240305';
 
+export const theme = {
+    bgWhite: (opacity: number) => `rgba(255,255,255,${opacity})`
+}
+
 export const weatherImages = {
     'Partly cloudy': require('../assets/images/partlycloudy.png'),
     'Moderate rain': require('../assets/images/moderaterain.png'),
