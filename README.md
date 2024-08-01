@@ -1,79 +1,76 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# WeatherWise
 
-# Getting Started
+WeatherWise is a simple and user-friendly application that allows users to get real-time weather information for any location in the world. The app provides current weather conditions, a 3-day forecast and additional details such as temperature, humidity, wind speed etc. The app fetches data from the [Weather API](https://www.weatherapi.com/).
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Table of Contents
 
-## Step 1: Start the Metro Server
+- [Tech Stack](#tech-stack)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Snapshots](#project-snapshots)
+- [Acknowledgments](#acknowledgments)
+- [Contact](#contact)
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Tech Stack
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- [React Native](https://reactnative.dev/): Core framework for building the app.
+- [NativeWind](https://www.nativewind.dev/): Tailwind CSS for styling React Native components.
+- [React Native Heroicons](https://www.npmjs.com/package/react-native-heroicons): Icon library for adding visually appealing icons to the app.
+- [React Native Progress](https://www.npmjs.com/package/react-native-progress): Progress indicators for loading states.
+- [React Native Async Storage](https://www.npmjs.com/package/@react-native-async-storage/async-storage): Local storage for saving the last searched city.
+- [Weather API](https://www.weatherapi.com/): Fetches real-time weather data and 3-day forecast.
 
-```bash
-# using npm
+## Features
+
+- **Real-Time Weather**: Search for any city or location to get up-to-date weather information.
+- **3-Day Forecast**: View a detailed 3-day weather forecast for your selected location.
+- **Save Location**: Automatically saves your last searched city in local storage.
+- **Responsive Design**: Simple and intuitive design ensures responsiveness across various devices (mobile, tablet, desktop).
+
+## Installation
+
+1.**Clone the repository**
+```
+git clone https://github.com/pawarnikhild/contact-us-page
+```
+2.**Navigate to project repository and install dependencies**
+```
+cd contact-us-page
+npm Install
+```
+3.**Start the development server:**
+```
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Start your Application
+> **Note**: Due to API rate limits, it's recommended to use your own API key. You can use the provided key for a quick demo, but kindly do not overuse it to ensure it remains available for others who may also need to test the project.
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+## Usage
 
-### For Android
+1. Enter the name of a city or location in the search bar. The app will bring up a list of matching locations. Select the desired city from the dropdown.
+2. The app will fetch and display the current weather and the 3-day forecast with detailed information about the temperature, humidity, wind speed.
+3. The app automatically saves the last searched city to local storage, so the next time you open the app, it will load the weather details for the saved location automatically.
 
-```bash
-# using npm
-npm run android
+## Project Snapshots
 
-# OR using Yarn
-yarn android
-```
+Here are screenshots of the project:
 
-### For iOS
+<p align="center">
+  <img src="https://github.com/pawarnikhild/WeatherWise/blob/main/Project%20Demo/Screenshot_1722538089.png" alt="Screenshot 1" width="200" style="margin-right: 30px;"/>
+  <img src="https://github.com/pawarnikhild/WeatherWise/blob/main/Project%20Demo/Screenshot_1722538097.png" alt="Screenshot 2" width="200"/>
+</p>
 
-```bash
-# using npm
-npm run ios
+## Acknowledgments
 
-# OR using Yarn
-yarn ios
-```
+This project was created following the tutorial by [Code With Nomi](https://www.youtube.com/@codewithnomi). Thanks to him for providing the guidance and resources for this project. The detailed steps and explanation can be found in the video:<br>
+🔴 Build Weather App Using React Native | React Native Projects | Beginners -<br>
+https://www.youtube.com/watch?v=953vyZMO4cM
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Contact
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+For any questions or suggestions, kindly reach out:
 
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- Email: pawarnikhild@gmail.com
+- LinkedIn: https://www.linkedin.com/in/nikhil-pawar-529687223/
+- GitHub: https://github.com/pawarnikhild
