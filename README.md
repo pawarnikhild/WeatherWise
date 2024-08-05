@@ -2,6 +2,8 @@
 
 WeatherWise is a simple and user-friendly application that allows users to get real-time weather information for any location in the world. The app provides current weather conditions, a 3-day forecast and additional details such as temperature, humidity, wind speed etc. The app fetches data from the [Weather API](https://www.weatherapi.com/).
 
+>**Note:** Active development is ongoing in the [`weather-v2`](https://github.com/pawarnikhild/WeatherWise/tree/weather-v2) branch. It contains new features that are still being tested and refined.
+
 ## Table of Contents
 
 - [Tech Stack](#tech-stack)
