@@ -12,6 +12,7 @@ import {
 import {
   CalendarDaysIcon,
   MagnifyingGlassIcon,
+  Bars3Icon,
 } from 'react-native-heroicons/outline';
 import { MapPinIcon } from 'react-native-heroicons/solid';
 import * as Progress from 'react-native-progress';
@@ -25,9 +26,11 @@ type HomeScreenViewProps = {
   locations: weatherType['location'][];
   weather: weatherType;
   loading: boolean;
-  hadnleTextDebounce: (text: string) => void;
+  handleTextDebounce: (text: string) => void;
   toggleShowSearch: () => void;
   handleLocationPress: (location: weatherType['location']) => void;
+  requestLocationPermission: () => void;
+  checkLocationPermission: () => void;
 };
 
 const HomeScreenView = ({
@@ -35,9 +38,11 @@ const HomeScreenView = ({
   locations,
   weather,
   loading,
-  hadnleTextDebounce,
+  handleTextDebounce,
   toggleShowSearch,
   handleLocationPress,
+  requestLocationPermission,
+  checkLocationPermission,
 }: HomeScreenViewProps) => {
   const { current, location } = weather;
 
@@ -56,56 +61,66 @@ const HomeScreenView = ({
         </View>
       ) : (
         <SafeAreaView className="flex-1">
-          <View className="mx-4 relative z-50" style={{ height: '7%' }}>
-            {/*sytle kadhun check karne farak padtoy ka */}
-            <View
-              className="flex-row justify-end items-center rounded-full"
-              style={{
-                backgroundColor: showSearch
-                  ? theme.bgWhite(0.2)
-                  : 'transparent',
-              }}>
-              {showSearch && (
-                <TextInput
-                  placeholder="Search city"
-                  placeholderTextColor="lightgrey"
-                  className="flex-1 pl-6 h-10 text-base text-white"
-                  onChangeText={hadnleTextDebounce}
-                />
-              )}
-
+          <View className="flex-row mx-1" style={{ height: '7%' }}>
+            {!showSearch && (
               <TouchableOpacity
                 className="rounded-full p-3 m-1"
-                style={{ backgroundColor: theme.bgWhite(0.3) }}
-                onPress={toggleShowSearch}>
-                <MagnifyingGlassIcon size={25} color="white" />
+                // style={{ backgroundColor: theme.bgWhite(0.3) }}
+                onPress={requestLocationPermission}>
+                <Bars3Icon size={33} color="white" />
               </TouchableOpacity>
-            </View>
-            {locations.length > 0 && showSearch && (
-              <View className="absolute w-full top-16 bg-gray-300 rounded-3xl">
-                {locations.map((location, index) => {
-                  let showBorder = index + 1 != locations.length;
-                  let borderClass = showBorder
-                    ? 'border-b-2 border-b-gray-400'
-                    : '';
-                  return (
-                    <TouchableOpacity
-                      key={index}
-                      className={
-                        'flex-row p-3 px-4 mb-1 border-0 items-center ' +
-                        borderClass
-                      }
-                      onPress={() => handleLocationPress(location)}>
-                      <MapPinIcon size={20} color="grey" />
-                      <Text className="text-black text-lg ml-2">
-                        {location?.name}, {location?.region},{' '}
-                        {location?.country}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
             )}
+            <View className="flex-1 relative z-50 ">
+              {/*sytle kadhun check karne farak padtoy ka */}
+              <View
+                className=" flex-row justify-end items-center rounded-full"
+                style={
+                  showSearch
+                    ? { backgroundColor: theme.bgWhite(0.2) }
+                    : { backgroundColor: 'transparent' }
+                }>
+                {showSearch && (
+                  <TextInput
+                    placeholder="Search city"
+                    placeholderTextColor="lightgrey"
+                    className="flex-1 pl-6 h-10 text-base text-white"
+                    // style={{width: '100%'}}
+                    onChangeText={handleTextDebounce}
+                  />
+                )}
+                <TouchableOpacity
+                  className="rounded-full p-3 m-1"
+                  style={{ backgroundColor: theme.bgWhite(0.3) }}
+                  onPress={toggleShowSearch}>
+                  <MagnifyingGlassIcon size={25} color="white" />
+                </TouchableOpacity>
+              </View>
+              {locations.length > 0 && showSearch && (
+                <View className="absolute w-full top-16 bg-gray-300 rounded-3xl">
+                  {locations.map((location, index) => {
+                    let showBorder = index + 1 != locations.length;
+                    let borderClass = showBorder
+                      ? 'border-b-2 border-b-gray-400'
+                      : '';
+                    return (
+                      <TouchableOpacity
+                        key={index}
+                        className={
+                          'flex-row p-3 px-4 mb-1 border-0 items-center ' +
+                          borderClass
+                        }
+                        onPress={() => handleLocationPress(location)}>
+                        <MapPinIcon size={20} color="grey" />
+                        <Text className="text-black text-lg ml-2">
+                          {location?.name}, {location?.region},{' '}
+                          {location?.country}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              )}
+            </View>
           </View>
           <View className="mx-4 mb-2 flex flex-1 justify-around">
             <Text className="text-white text-center text-2xl font-bold">
@@ -179,7 +194,6 @@ const HomeScreenView = ({
                 let date = new Date(item.date);
                 let options: Intl.DateTimeFormatOptions = { weekday: 'long' };
                 let dayName = date.toLocaleDateString('en-US', options);
-
                 date;
                 return (
                   <View

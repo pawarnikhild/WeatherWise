@@ -3,7 +3,11 @@ export type fetchLocationsParamsType = {
 }
 
 export type fetchWeatherForecastParamsType = {
-    cityName: string,
+    cityName?: string,
+    coordinates?: {
+        latitude: number,
+        longitude: number
+      }
     days: number,
 }
 
