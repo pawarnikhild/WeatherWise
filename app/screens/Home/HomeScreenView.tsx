@@ -59,12 +59,84 @@ const HomeScreenView = ({
           {/* <Text className='text-white text-4xl'>Loading...</Text> */}
           <Progress.CircleSnail size={140} thickness={10} color="#0bb3b2" />
         </View>
+      ) : // Checking if state weather is unpopulated
+      weather.location.name === '' || weather.current.temp_c === '' ? (
+        <SafeAreaView className="flex-1">
+          <View className="flex-row mx-1" style={{ height: '7%' }}>
+            {!showSearch && (
+              <TouchableOpacity
+                className="rounded-full p-2 m-1"
+                // style={{ backgroundColor: theme.bgWhite(0.3) }}
+                onPress={requestLocationPermission}>
+                <Bars3Icon size={33} color="white" />
+              </TouchableOpacity>
+            )}
+            <View className="flex-1 relative z-50 ">
+              <View
+                className=" flex-row justify-end items-center rounded-full"
+                style={
+                  showSearch
+                    ? { backgroundColor: theme.bgWhite(0.2) }
+                    : { backgroundColor: 'transparent' }
+                }>
+                {showSearch && (
+                  <TextInput
+                    placeholder="Search city"
+                    placeholderTextColor="lightgrey"
+                    className="flex-1 pl-6 h-10 text-base text-white"
+                    // style={{width: '100%'}}
+                    onChangeText={handleTextDebounce}
+                  />
+                )}
+                <TouchableOpacity
+                  className="rounded-full p-3 m-1"
+                  style={{ backgroundColor: theme.bgWhite(0.3) }}
+                  onPress={toggleShowSearch}>
+                  <MagnifyingGlassIcon size={25} color="white" />
+                </TouchableOpacity>
+              </View>
+              {locations.length > 0 && showSearch && (
+                <View className="absolute w-full top-16 bg-gray-300 rounded-3xl">
+                  {locations.map((location, index) => {
+                    let showBorder = index + 1 != locations.length;
+                    let borderClass = showBorder
+                      ? 'border-b-2 border-b-gray-400'
+                      : '';
+                    return (
+                      <TouchableOpacity
+                        key={index}
+                        className={
+                          'flex-row p-3 px-4 mb-1 border-0 items-center ' +
+                          borderClass
+                        }
+                        onPress={() => handleLocationPress(location)}>
+                        <MapPinIcon size={20} color="grey" />
+                        <Text className="text-black text-lg ml-2">
+                          {location?.name}, {location?.region},{' '}
+                          {location?.country}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              )}
+            </View>
+          </View>
+          <View className="flex-1 justify-center items-center">
+            <Text className="text-center text-white text-4xl my-3">
+              No data to display
+            </Text>
+            <Text className="text-center text-white text-4xl ">
+              You need to search location first!{' '}
+            </Text>
+          </View>
+        </SafeAreaView>
       ) : (
         <SafeAreaView className="flex-1">
           <View className="flex-row mx-1" style={{ height: '7%' }}>
             {!showSearch && (
               <TouchableOpacity
-                className="rounded-full p-3 m-1"
+                className="rounded-full p-2 m-1"
                 // style={{ backgroundColor: theme.bgWhite(0.3) }}
                 onPress={requestLocationPermission}>
                 <Bars3Icon size={33} color="white" />

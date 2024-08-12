@@ -6,7 +6,12 @@ import Geolocation from '@react-native-community/geolocation';
 import DeviceInfo from 'react-native-device-info';
 
 import { fetchLocations, fetchWeatherForecast } from '../../services/weather-api';
-import { storeLocation, retrieveLocation } from '../../utils/asyncStorage';
+import {
+  storeLocation,
+  retrieveLocation,
+  retrieveUserPermissionIntent,
+  storeUserPermissionIntent,
+} from '../../utils/asyncStorage';
 import { weatherType } from '../../types/HomeScreenTypes';
 
 import HomeScreenView from './HomeScreenView';
@@ -52,8 +57,19 @@ const HomeScreen = () => {
 
   useEffect(() => {
     // fetchMyLocation();
-    checkLocationPermission();
+    shouldRequestPermission();
   }, []);
+
+  const shouldRequestPermission = async () => {
+    let localPemrissionIntent = await retrieveUserPermissionIntent();
+    if (localPemrissionIntent !== 'denied') {
+      checkLocationPermission();
+    } else {
+      console.log(
+        'shouldRequestPermission: User does not intend to grant permission',
+      );
+    }
+  };
 
   const checkLocationPermission = async () => {
     // let permissionStatus = await check('android.permission.ACCESS_COARSE_LOCATION'); // This is from android
@@ -85,7 +101,10 @@ const HomeScreen = () => {
         },
         {
           text: 'Cancel',
-          onPress: () => console.log('Refused to request permissions!'),
+          onPress: () => {
+            storeUserPermissionIntent('denied');
+            console.log('Refused to request permissions!');
+          },
         },
         {
           text: 'Ok',
@@ -120,6 +139,7 @@ const HomeScreen = () => {
       checkLocationEnabled();
     } else if (permissionStatus === 'denied') {
       canDoItLaterFromMenuAlert();
+      storeUserPermissionIntent('denied');
     } else {
       // permissionStatus = 'blocked'
       canDoFromSettingAlert();
@@ -139,7 +159,7 @@ const HomeScreen = () => {
           text: 'Go to settings',
           onPress: () => {
             if (Platform.OS === 'android') {
-              Linking.openSettings()
+              Linking.openSettings();
             } else if (Platform.OS === 'ios') {
               Linking.openURL('app-settings:');
             }
@@ -218,7 +238,7 @@ const HomeScreen = () => {
 
   // This function fetches default or previously searched location
   const fetchMyLocation = async () => {
-    let myCity = await retrieveLocation('city');
+    let myCity = await retrieveLocation();
     let defaultCity = 'Delhi';
     if (myCity) defaultCity = myCity;
     setLoading(true);
@@ -249,7 +269,7 @@ const HomeScreen = () => {
       //@ts-ignore
       setWeather(data);
       setLoading(false);
-      storeLocation('city', location.name);
+      storeLocation(location.name);
       console.log('Forecast data fetched');
       // console.log(JSON.stringify(data));
     });
